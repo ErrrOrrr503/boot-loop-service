@@ -1,0 +1,21 @@
+[Unit]
+Description=Service to setup partitioned loop device, containing booter.img
+DefaultDependencies=no
+
+After=VentoyPartition.mount
+Requires=VentoyPartition.mount
+
+Before=boot.mount
+Before=boot-efi.mount
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+ExecStart=/bin/bash -c "/usr/bin/losetup -P /dev/loop42 /VentoyPartition/IMG/booter.img && cryptsetup luksOpen <encrypted boot in booter.img, i.e. /dev/loop42p3> luks-boot --key-file=<crypto_keyfile>"
+ExecStop=/bin/bash -c "cryptsetup luksClose luks-boot && /usr/bin/losetup -d /dev/loop42"
+
+[Install]
+WantedBy=local-fs.target
+RequiredBy=local-fs.target
+RequiredBy=boot.mount
+RequiredBy=boot-efi.mount

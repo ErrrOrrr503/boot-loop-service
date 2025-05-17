@@ -1,0 +1,20 @@
+# /etc/fstab: static file system information.
+#
+# Use 'blkid' to print the universally unique identifier for a device; this may
+# be used with UUID= as a more robust way to name devices that works even if
+# disks are added and removed. See fstab(5).
+#
+# <file system>             <mount point>  <type>  <options>  <dump>  <pass>
+
+# root, home, etc subvols
+/dev/mapper/<root decrypted volume>	/	fs	options 0 0
+...
+
+# Ventoy partition (for /boot mount)
+UUID=<Ventoy partition UUID>	/VentoyPartition	ntfs/vfat   rw,defaults 0 0
+
+# /boot in booter.img
+/dev/mapper/<boot decrypted volume>	/boot	fs	options 0 0
+
+# /boot/efi in booter.img
+UUID=<EFI partition UUID>	/boot/efi	vfat	defaults,umask=0077 0 1
