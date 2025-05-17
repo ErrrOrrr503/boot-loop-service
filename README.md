@@ -2,8 +2,8 @@
 
 The service let you combine ventoy and full linux installation in one usb stick. No Ventoy plugins needed.
 
-[!TIP]
-Ventoy can boot vhd and vdi. Maybe they are better way to achieve the goal.
+> [!TIP]
+> Ventoy can boot vhd and vdi. Maybe they are better way to achieve the goal.
 
 ## Principle
 
@@ -32,8 +32,8 @@ Linux's /boot and /boot/efi is placed into an .img, which ventoy boots. / is sto
 * Kernel recognizes /, as it is a separate partition (not hidden in booter.img), decrypts and mounts it.
 * fstab-based systemd service mounts VentoyPartition.
 * boot-loop service initiates *multy-partitioned* loop from booter.img and decrypts boot.
-[!NOTE]
-Multi-partitioned loop requirement is in fact the cause of the service. Fstab just supports only single-partition loops.
+> [!NOTE]
+> Multi-partitioned loop requirement is in fact the cause of the service. Fstab just supports only single-partition loops.
 * fstab-based service mounts (decrypted) boot and boot-efi from the loop.
 * System correctly booted!
 
